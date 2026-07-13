@@ -1,11 +1,17 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 export default function EntityForm() {
   return (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-8">
-        Spring Boot CRUD Generator
-      </h1>
+    <Card>
+      <CardHeader>
+        <CardTitle>Entity Configuration</CardTitle>
+      </CardHeader>
 
-      <p>Entity Form Coming Soon...</p>
-    </div>
+      <CardContent>
+        <p className="text-muted-foreground">
+          Configure your entity to generate Spring Boot CRUD files.
+        </p>
+      </CardContent>
+    </Card>
   );
 }
