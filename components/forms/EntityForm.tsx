@@ -12,14 +12,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { entitySchema, EntityFormValues } from "@/lib/form-schema";
 
 import { generateEntity } from "@/lib/generators/entity-generator";
+import { generateDto } from "@/lib/generators/dto-generator";
+import { generateRepository } from "@/lib/generators/repository-generator";
+import { generateService } from "@/lib/generators/service-generator";
+import { generateServiceImpl } from "@/lib/generators/service-impl-generator";
+import { generateMapper } from "@/lib/generators/mapper-generator";
+import { generateController } from "@/lib/generators/controller-generator";
+import { generateException } from "@/lib/generators/exception-generator";
+import { generateGlobalExceptionHandler } from "@/lib/generators/global-exception-handler-generator";
+import { GeneratedFiles } from "@/types/generated-files";
 
 interface EntityFormProps {
-  setGeneratedCode: (code: string) => void;
+  setGeneratedFiles: React.Dispatch<React.SetStateAction<GeneratedFiles>>;
 }
 
-export default function EntityForm({
-  setGeneratedCode,
-}: EntityFormProps) {
+export default function EntityForm({ setGeneratedFiles }: EntityFormProps) {
   const form = useForm<EntityFormValues>({
     resolver: zodResolver(entitySchema),
 
@@ -35,17 +42,59 @@ export default function EntityForm({
     name: "fields",
   });
 
-const onSubmit = (data: EntityFormValues) => {
-  setGeneratedCode(generateEntity(data));
-};
+  const onSubmit = (data: EntityFormValues) => {
+    setGeneratedFiles({
+      entity: {
+        name: `${data.entityName}.java`,
+        code: generateEntity(data),
+      },
+      dto: {
+        name: `${data.entityName}Dto.java`,
+        code: generateDto(data),
+      },
+
+      mapper: {
+        name: `${data.entityName}Mapper.java`,
+        code: generateMapper(data),
+      },
+
+      repository: {
+        name: `${data.entityName}Repository.java`,
+        code: generateRepository(data),
+      },
+
+      service: {
+        name: `${data.entityName}Service.java`,
+        code: generateService(data),
+      },
+
+      serviceImpl: {
+        name: `${data.entityName}ServiceImpl.java`,
+        code: generateServiceImpl(data),
+      },
+      controller: {
+        name: `${data.entityName}Controller.java`,
+        code: generateController(data),
+      },
+      exception: {
+        name: "ResourceNotFoundException.java",
+        code: generateException(data),
+      },
+
+      globalExceptionHandler: {
+        name: "GlobalExceptionHandler.java",
+        code: generateGlobalExceptionHandler(data),
+      },
+    });
+  };
 
   return (
-    <Card>
+    <Card className="h-fit">
       <CardHeader>
         <CardTitle>Entity Configuration</CardTitle>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="pb-6">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <EntityNameInput control={form.control} />
 
