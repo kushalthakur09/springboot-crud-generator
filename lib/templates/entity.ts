@@ -2,6 +2,7 @@ export const ENTITY_TEMPLATE = `
 package {{PACKAGE_NAME}}.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Entity
