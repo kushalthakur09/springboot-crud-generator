@@ -11,7 +11,8 @@ import CodePreview from "@/components/preview/CodePreview";
 import { GeneratedFiles } from "@/types/generated-files";
 
 export default function HomePage() {
-  const generator = useResizable(420, 350, 700);
+  const generator = useResizable(500, 380, 750);
+
   const [generatedFiles, setGeneratedFiles] = useState<GeneratedFiles>({
     entity: { name: "", code: "" },
     dto: { name: "", code: "" },
@@ -28,26 +29,27 @@ export default function HomePage() {
     <>
       <Navbar />
 
-      <main className="h-[calc(100vh-64px)] bg-[#FFF5F8] dark:bg-zinc-950 transition-colors duration-300">
+      <main className="h-[calc(100vh-64px)] overflow-hidden bg-[#FFF5F8] dark:bg-zinc-950">
         <div
-          className="grid h-full"
+          ref={generator.containerRef}
+          className="grid h-full min-h-0"
           style={{
-            gridTemplateColumns: `minmax(350px, ${generator.width}px) 6px minmax(650px, 1fr)`,
+            gridTemplateColumns: `${generator.width}px 6px 1fr`,
           }}
         >
           {/* Generator */}
-          <div className="min-w-[350px] overflow-y-auto p-6">
+          <div className="h-full overflow-auto p-6">
             <EntityForm setGeneratedFiles={setGeneratedFiles} />
           </div>
 
-          {/* Resize Handle */}
+          {/* Resize */}
           <div
             onMouseDown={generator.startResize}
-            className="cursor-col-resize bg-zinc-800 transition-colors hover:bg-pink-500"
+            className="cursor-col-resize bg-zinc-800 hover:bg-pink-500 transition-colors"
           />
 
           {/* Preview */}
-          <div className="min-w-[650px] overflow-hidden p-6">
+          <div className="h-full overflow-hidden p-6">
             <CodePreview files={generatedFiles} />
           </div>
         </div>

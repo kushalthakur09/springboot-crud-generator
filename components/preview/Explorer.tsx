@@ -78,17 +78,19 @@ export default function Explorer({
   setSelectedFile,
 }: ExplorerProps) {
   return (
-    <aside className="h-full overflow-hidden border-r border-zinc-800 bg-[#181818]">
-      <div className="border-b border-zinc-800 px-4 py-3 text-xs font-semibold tracking-wider text-zinc-400">
+    <aside className="flex h-full min-h-0 flex-col border-r border-zinc-800 bg-[#181818]">
+
+      <div className="shrink-0 border-b border-zinc-800 px-4 py-3 text-xs font-semibold tracking-wider text-zinc-400">
         EXPLORER
       </div>
 
-      <div className="h-[calc(100%-45px)] overflow-y-auto p-2">
+      <div className="min-h-0 flex-1 overflow-y-scroll overflow-x-auto p-2">
         {explorer(files).map((section) => (
           <div key={section.folder} className="mb-3">
+
             <div className="flex items-center gap-1 px-2 py-1 text-xs font-semibold uppercase tracking-wide text-zinc-400">
-              <ChevronDown size={14} className="shrink-0" />
-              <FolderOpen size={14} className="shrink-0" />
+              <ChevronDown size={14} />
+              <FolderOpen size={14} />
               <span>{section.folder}</span>
             </div>
 
@@ -97,7 +99,7 @@ export default function Explorer({
                 key={file.key}
                 onClick={() => setSelectedFile(file.key)}
                 className={cn(
-                  "ml-5 flex w-[calc(100%-20px)] min-w-0 items-center gap-2 rounded px-2 py-1.5 text-left text-sm transition-colors hover:bg-zinc-800",
+                  "ml-5 flex w-[calc(100%-20px)] items-center gap-2 rounded px-2 py-1.5 text-left text-sm hover:bg-zinc-800",
                   selectedFile === file.key &&
                     "bg-zinc-800 text-pink-400"
                 )}
@@ -107,10 +109,7 @@ export default function Explorer({
                   className="shrink-0 text-orange-400"
                 />
 
-                <span
-                  className="min-w-0 flex-1 truncate"
-                  title={file.label}
-                >
+                <span className="truncate">
                   {file.label}
                 </span>
               </button>
@@ -118,6 +117,7 @@ export default function Explorer({
           </div>
         ))}
       </div>
+
     </aside>
   );
 }

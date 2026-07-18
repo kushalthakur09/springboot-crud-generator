@@ -45,11 +45,14 @@ export default function CodePreview({ files }: CodePreviewProps) {
   };
 
   return (
-    <div ref={explorer.containerRef} className="h-full w-full overflow-hidden">
+    <div
+      ref={explorer.containerRef}
+      className="h-full min-h-0 overflow-hidden"
+    >
       <Card
-        className="grid h-[calc(100vh-110px)] overflow-hidden"
+        className="grid h-full min-h-0 overflow-hidden"
         style={{
-          gridTemplateColumns: `minmax(220px, ${explorer.width}px) 6px minmax(400px, 1fr)`,
+          gridTemplateColumns: `${explorer.width}px 6px 1fr`,
         }}
       >
         <Explorer
@@ -58,9 +61,10 @@ export default function CodePreview({ files }: CodePreviewProps) {
           setSelectedFile={setSelectedFile}
         />
 
+        {/* Resize Handle */}
         <div
           onMouseDown={explorer.startResize}
-          className="cursor-col-resize bg-zinc-800 transition-colors hover:bg-pink-500 active:bg-pink-600"
+          className="cursor-col-resize bg-zinc-800 transition-colors hover:bg-pink-500"
         />
 
         <Editor
