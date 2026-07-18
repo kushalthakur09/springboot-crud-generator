@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useResizable } from "@/hooks/useResizable";
 
 import { Card } from "@/components/ui/card";
@@ -10,45 +10,65 @@ import Editor from "./Editor";
 
 import { GeneratedFiles } from "@/types/generated-files";
 
+
 interface CodePreviewProps {
   files: GeneratedFiles;
+  packageName: string;
 }
 
-export default function CodePreview({ files }: CodePreviewProps) {
+export default function CodePreview({ files, packageName }: CodePreviewProps) {
   const explorer = useResizable(250, 220, 450);
 
-  const [selectedFile, setSelectedFile] = useState("entity");
+  const [selectedFile, setSelectedFile] = useState("application");
 
-  const getCode = () => {
+  const file = useMemo(() => {
     switch (selectedFile) {
       case "entity":
-        return files.entity.code;
+        return files.entity;
+
       case "dto":
-        return files.dto.code;
+        return files.dto;
+
       case "mapper":
-        return files.mapper.code;
+        return files.mapper;
+
       case "repository":
-        return files.repository.code;
+        return files.repository;
+
       case "service":
-        return files.service.code;
+        return files.service;
+
       case "serviceImpl":
-        return files.serviceImpl.code;
+        return files.serviceImpl;
+
       case "controller":
-        return files.controller.code;
+        return files.controller;
+
       case "exception":
-        return files.exception.code;
+        return files.exception;
+
       case "globalExceptionHandler":
-        return files.globalExceptionHandler.code;
+        return files.globalExceptionHandler;
+
+      case "application":
+        return files.application;
+
+      case "applicationProperties":
+        return files.applicationProperties;
+
+      case "pom":
+        return files.pom;
+
       default:
-        return "";
+        return {
+          name: "No File",
+          code: "",
+        };
     }
-  };
+  }, [selectedFile, files]);
 
   return (
-    <div
-      ref={explorer.containerRef}
-      className="h-full min-h-0 overflow-hidden"
-    >
+    <div ref={explorer.containerRef} className="h-full min-h-0 overflow-hidden">
       <Card
         className="grid h-full min-h-0 overflow-hidden"
         style={{
@@ -68,10 +88,10 @@ export default function CodePreview({ files }: CodePreviewProps) {
         />
 
         <Editor
-          fileName={
-            files[selectedFile as keyof GeneratedFiles]?.name || "No File"
-          }
-          code={getCode()}
+          fileName={file.name}
+          code={file.code}
+          files={files}
+          packageName={packageName}
         />
       </Card>
     </div>

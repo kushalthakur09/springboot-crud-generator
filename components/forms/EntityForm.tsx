@@ -20,13 +20,26 @@ import { generateMapper } from "@/lib/generators/mapper-generator";
 import { generateController } from "@/lib/generators/controller-generator";
 import { generateException } from "@/lib/generators/exception-generator";
 import { generateGlobalExceptionHandler } from "@/lib/generators/global-exception-handler-generator";
+import { generateApplication } from "@/lib/generators/generate-application";
+import { generateApplicationProperties } from "@/lib/generators/generate-application-properties";
+import { generatePom } from "@/lib/generators/pom-generator";
 import { GeneratedFiles } from "@/types/generated-files";
+import { ProjectConfig } from "@/types/project-config";
 
 interface EntityFormProps {
+  projectConfig: ProjectConfig;
   setGeneratedFiles: React.Dispatch<React.SetStateAction<GeneratedFiles>>;
 }
 
-export default function EntityForm({ setGeneratedFiles }: EntityFormProps) {
+interface EntityFormProps {
+  projectConfig: ProjectConfig;
+  setGeneratedFiles: React.Dispatch<React.SetStateAction<GeneratedFiles>>;
+}
+
+export default function EntityForm({
+  projectConfig,
+  setGeneratedFiles,
+}: EntityFormProps) {
   const form = useForm<EntityFormValues>({
     resolver: zodResolver(entitySchema),
 
@@ -84,6 +97,20 @@ export default function EntityForm({ setGeneratedFiles }: EntityFormProps) {
       globalExceptionHandler: {
         name: "GlobalExceptionHandler.java",
         code: generateGlobalExceptionHandler(data),
+      },
+
+      application: {
+        name: `${data.entityName}Application.java`,
+        code: generateApplication(data.entityName, projectConfig),
+      },
+
+      applicationProperties: {
+        name: "application.properties",
+        code: generateApplicationProperties(),
+      },
+      pom: {
+        name: "pom.xml",
+        code: generatePom(projectConfig),
       },
     });
   };

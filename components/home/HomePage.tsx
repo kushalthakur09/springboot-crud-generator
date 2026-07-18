@@ -9,9 +9,22 @@ import EntityForm from "@/components/forms/EntityForm";
 import CodePreview from "@/components/preview/CodePreview";
 
 import { GeneratedFiles } from "@/types/generated-files";
+import ProjectSettings from "@/components/forms/ProjectSettings";
+import { ProjectConfig } from "@/types/project-config";
 
 export default function HomePage() {
   const generator = useResizable(500, 380, 750);
+
+const [projectConfig, setProjectConfig] = useState<ProjectConfig>({
+  projectName: "MerchantMart",
+  artifactId: "merchantmart",
+  packageName: "com.main.demo",
+
+  javaVersion: "21",
+  buildTool: "maven",
+  database: "postgresql",
+  springBootVersion: "3.5.4",
+});
 
   const [generatedFiles, setGeneratedFiles] = useState<GeneratedFiles>({
     entity: { name: "", code: "" },
@@ -23,6 +36,9 @@ export default function HomePage() {
     controller: { name: "", code: "" },
     exception: { name: "", code: "" },
     globalExceptionHandler: { name: "", code: "" },
+    application: { name: "Application.java", code: "" },
+    applicationProperties: { name: "application.properties", code: "" },
+    pom: { name: "pom.xml", code: "" },
   });
 
   return (
@@ -37,9 +53,16 @@ export default function HomePage() {
             gridTemplateColumns: `${generator.width}px 6px 1fr`,
           }}
         >
-          {/* Generator */}
-          <div className="h-full overflow-auto p-6">
-            <EntityForm setGeneratedFiles={setGeneratedFiles} />
+          <div className="h-full space-y-6 overflow-auto p-6">
+            <ProjectSettings
+              projectConfig={projectConfig}
+              setProjectConfig={setProjectConfig}
+            />
+
+            <EntityForm
+              projectConfig={projectConfig}
+              setGeneratedFiles={setGeneratedFiles}
+            />
           </div>
 
           {/* Resize */}
@@ -50,7 +73,10 @@ export default function HomePage() {
 
           {/* Preview */}
           <div className="h-full overflow-hidden p-6">
-            <CodePreview files={generatedFiles} />
+            <CodePreview
+              files={generatedFiles}
+              packageName={projectConfig.packageName}
+            />
           </div>
         </div>
       </main>

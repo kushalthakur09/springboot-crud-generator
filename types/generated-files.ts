@@ -13,4 +13,7 @@ export interface GeneratedFiles {
   controller: GeneratedFile;
   exception: GeneratedFile;
   globalExceptionHandler: GeneratedFile;
+  application: GeneratedFile;
+  applicationProperties: GeneratedFile;
+  pom: GeneratedFile;
 }
