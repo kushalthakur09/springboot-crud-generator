@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "SpringForge",
+  title: "CodeForge",
   description: "Generate Spring Boot CRUD modules in seconds.",
 };
 
