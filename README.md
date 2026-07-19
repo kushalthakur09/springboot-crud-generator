@@ -1,36 +1,192 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 CodeForge
 
-## Getting Started
+<p align="center">
+  <strong>Generate production-ready backend projects in seconds.</strong>
+</p>
 
-First, run the development server:
+<p align="center">
+  An open-source project generator that scaffolds clean, scalable, and maintainable backend applications. Starting with Spring Boot, with support for multiple technologies planned in the future.
+</p>
+
+---
+
+## ✨ Features
+
+### Current Features
+
+- ✅ Spring Boot CRUD Project Generation
+- ✅ Entity Generation
+- ✅ DTO Generation
+- ✅ Mapper Generation
+- ✅ Repository Generation
+- ✅ Service Layer Generation
+- ✅ REST Controller Generation
+- ✅ Global Exception Handling
+- ✅ Maven Project Generation
+- ✅ Gradle Project Generation
+- ✅ Java 17 & Java 21 Support
+- ✅ PostgreSQL Support
+- ✅ MySQL Support
+- ✅ Production-ready Project Structure
+- ✅ ZIP Download
+
+---
+
+## 🛣 Roadmap
+
+### Spring Boot
+
+- [x] CRUD Generator
+- [x] DTO Generation
+- [x] Repository Generation
+- [x] Service Layer
+- [x] Controller Generation
+- [x] Exception Handling
+- [x] Maven Support
+- [x] Gradle Support
+
+### Coming Soon
+
+- [ ] Entity Relationships
+  - [ ] One-to-One
+  - [ ] One-to-Many
+  - [ ] Many-to-One
+  - [ ] Many-to-Many
+
+- [ ] Swagger/OpenAPI
+- [ ] Validation Support
+- [ ] Spring Security
+- [ ] JWT Authentication
+- [ ] Docker Support
+- [ ] Flyway
+- [ ] Liquibase
+- [ ] Unit Test Generation
+- [ ] Integration Test Generation
+
+### Future Framework Support
+
+- [ ] NestJS
+- [ ] Express.js
+- [ ] FastAPI
+- [ ] Django
+- [ ] ASP.NET Core
+- [ ] Go Fiber
+- [ ] Laravel
+
+---
+
+## 🏗 Tech Stack
+
+### Frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+
+### Backend Generation
+
+- Spring Boot
+- Java
+- Maven
+- Gradle
+
+---
+
+## 🚀 Getting Started
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/kushalthakur09/CodeForge.git
+
+cd CodeForge
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Start Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📁 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+CodeForge
+├── app/
+├── components/
+├── hooks/
+├── lib/
+│   ├── generators/
+│   ├── templates/
+│   └── utils/
+├── public/
+├── types/
+└── ...
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎯 Vision
 
-## Deploy on Vercel
+CodeForge aims to become a unified platform for generating production-ready backend projects across multiple technologies.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Instead of creating generators for a single framework, the long-term goal is to support modern backend ecosystems including:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Spring Boot
+- NestJS
+- Express.js
+- FastAPI
+- Django
+- ASP.NET Core
+- Go Fiber
+- Laravel
+
+The architecture is being designed to grow into a plugin-based ecosystem where contributors familiar with different technologies can add and maintain generators independently.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+Whether you're fixing bugs, improving documentation, or adding support for new technologies, we'd love your help.
+
+Please read the **CONTRIBUTING.md** guide before opening a Pull Request.
+
+---
+
+## ⭐ Support the Project
+
+If you find CodeForge useful:
+
+- ⭐ Star the repository
+- 🍴 Fork the project
+- 🐛 Report bugs
+- 💡 Suggest new features
+- 🤝 Contribute code
+
+Every contribution helps make CodeForge better.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+See the **LICENSE** file for details.
