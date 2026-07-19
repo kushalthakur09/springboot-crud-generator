@@ -15,5 +15,7 @@ export interface GeneratedFiles {
   globalExceptionHandler: GeneratedFile;
   application: GeneratedFile;
   applicationProperties: GeneratedFile;
-  pom: GeneratedFile;
+  pom?: GeneratedFile;
+  gradle?: GeneratedFile;
+  settingsGradle?: GeneratedFile;
 }

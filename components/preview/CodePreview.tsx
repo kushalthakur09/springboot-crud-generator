@@ -10,7 +10,6 @@ import Editor from "./Editor";
 
 import { GeneratedFiles } from "@/types/generated-files";
 
-
 interface CodePreviewProps {
   files: GeneratedFiles;
   packageName: string;
@@ -57,7 +56,18 @@ export default function CodePreview({ files, packageName }: CodePreviewProps) {
         return files.applicationProperties;
 
       case "pom":
-        return files.pom;
+        return files.pom ?? { name: "pom.xml", code: "" };
+        
+      case "gradle":
+        return files.gradle ?? { name: "build.gradle", code: "" };
+
+      case "settingsGradle":
+        return (
+          files.settingsGradle ?? {
+            name: "settings.gradle",
+            code: "",
+          }
+        );
 
       default:
         return {

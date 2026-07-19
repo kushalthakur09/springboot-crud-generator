@@ -2,11 +2,31 @@ import { GeneratedFiles } from "@/types/generated-files";
 import { FileNode } from "@/types/file-tree";
 
 export function buildFileTree(files: GeneratedFiles): FileNode[] {
-  return [
-    {
-      name: "pom.xml",
+  const rootFiles: FileNode[] = [];
+
+  if (files.pom?.code) {
+    rootFiles.push({
+      name: files.pom.name,
       key: "pom",
-    },
+    });
+  }
+
+  if (files.gradle?.code) {
+    rootFiles.push({
+      name: files.gradle.name,
+      key: "gradle",
+    });
+  }
+
+  if (files.settingsGradle?.code) {
+    rootFiles.push({
+      name: files.settingsGradle.name,
+      key: "settingsGradle",
+    });
+  }
+
+  return [
+    ...rootFiles,
     {
       name: "src",
       children: [

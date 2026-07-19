@@ -3,7 +3,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import EntityNameInput from "./EntityNameInput";
-import PackageNameInput from "./PackageNameInput";
 import FieldTable from "./FieldTable";
 
 import { useForm, useFieldArray } from "react-hook-form";
@@ -23,13 +22,10 @@ import { generateGlobalExceptionHandler } from "@/lib/generators/global-exceptio
 import { generateApplication } from "@/lib/generators/generate-application";
 import { generateApplicationProperties } from "@/lib/generators/generate-application-properties";
 import { generatePom } from "@/lib/generators/pom-generator";
+import { generateGradle } from "@/lib/generators/gradle-generator";
+import { generateSettingsGradle } from "@/lib/generators/settings-gradle-generator";
 import { GeneratedFiles } from "@/types/generated-files";
 import { ProjectConfig } from "@/types/project-config";
-
-interface EntityFormProps {
-  projectConfig: ProjectConfig;
-  setGeneratedFiles: React.Dispatch<React.SetStateAction<GeneratedFiles>>;
-}
 
 interface EntityFormProps {
   projectConfig: ProjectConfig;
@@ -45,7 +41,6 @@ export default function EntityForm({
 
     defaultValues: {
       entityName: "",
-      packageName: "com.main.demo",
       fields: [],
     },
   });
@@ -106,12 +101,27 @@ export default function EntityForm({
 
       applicationProperties: {
         name: "application.properties",
-        code: generateApplicationProperties(),
+        code: generateApplicationProperties(projectConfig),
       },
-      pom: {
-        name: "pom.xml",
-        code: generatePom(projectConfig),
-      },
+
+      ...(projectConfig.buildTool === "maven"
+        ? {
+            pom: {
+              name: "pom.xml",
+              code: generatePom(projectConfig),
+            },
+          }
+        : {
+            gradle: {
+              name: "build.gradle",
+              code: generateGradle(projectConfig),
+            },
+
+            settingsGradle: {
+              name: "settings.gradle",
+              code: generateSettingsGradle(projectConfig),
+            },
+          }),
     });
   };
 
@@ -124,8 +134,6 @@ export default function EntityForm({
       <CardContent className="pb-6">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <EntityNameInput control={form.control} />
-
-          <PackageNameInput control={form.control} />
 
           <FieldTable
             fields={fields}

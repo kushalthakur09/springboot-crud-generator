@@ -15,16 +15,15 @@ import { ProjectConfig } from "@/types/project-config";
 export default function HomePage() {
   const generator = useResizable(500, 380, 750);
 
-const [projectConfig, setProjectConfig] = useState<ProjectConfig>({
-  projectName: "MerchantMart",
-  artifactId: "merchantmart",
-  packageName: "com.main.demo",
-
-  javaVersion: "21",
-  buildTool: "maven",
-  database: "postgresql",
-  springBootVersion: "3.5.4",
-});
+  const [projectConfig, setProjectConfig] = useState<ProjectConfig>({
+    projectName: "MerchantMart",
+    artifactId: "merchantmart",
+    packageName: "com.main.demo",
+    javaVersion: "21",
+    buildTool: "maven",
+    database: "postgresql",
+    springBootVersion: "3.5.4",
+  });
 
   const [generatedFiles, setGeneratedFiles] = useState<GeneratedFiles>({
     entity: { name: "", code: "" },
@@ -38,7 +37,10 @@ const [projectConfig, setProjectConfig] = useState<ProjectConfig>({
     globalExceptionHandler: { name: "", code: "" },
     application: { name: "Application.java", code: "" },
     applicationProperties: { name: "application.properties", code: "" },
-    pom: { name: "pom.xml", code: "" },
+
+    pom: undefined,
+    gradle: undefined,
+    settingsGradle: undefined,
   });
 
   return (

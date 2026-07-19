@@ -10,7 +10,6 @@ export const fieldSchema = z.object({
 
 export const entitySchema = z.object({
   entityName: z.string().min(1, "Entity name is required"),
-  packageName: z.string().min(1, "Package name is required"),
   fields: z.array(fieldSchema),
 });
 

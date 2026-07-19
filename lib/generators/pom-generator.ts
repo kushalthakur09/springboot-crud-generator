@@ -1,8 +1,21 @@
 import { ProjectConfig } from "@/types/project-config";
 
-export function generatePom(
-  projectConfig: ProjectConfig
-) {
+export function generatePom(projectConfig: ProjectConfig) {
+  const databaseDependency =
+    projectConfig.database === "postgresql"
+      ? `
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>`
+      : `
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>`;
+
   return `<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -12,7 +25,7 @@ export function generatePom(
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.4</version>
+        <version>${projectConfig.springBootVersion}</version>
         <relativePath/>
     </parent>
 
@@ -21,7 +34,7 @@ export function generatePom(
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>${projectConfig.javaVersion}</java.version>
     </properties>
 
     <dependencies>
@@ -36,11 +49,7 @@ export function generatePom(
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+        ${databaseDependency}
 
         <dependency>
             <groupId>org.projectlombok</groupId>
