@@ -10,7 +10,17 @@ export async function downloadProject(
 
   const packagePath = packageName.replace(/\./g, "/");
 
+  if (files.pom) {
   zip.file("pom.xml", files.pom.code);
+}
+
+if (files.gradle) {
+  zip.file("build.gradle", files.gradle.code);
+}
+
+if (files.settingsGradle) {
+  zip.file("settings.gradle", files.settingsGradle.code);
+}
 
   zip.file(
     `src/main/java/${packagePath}/${files.application.name}`,
@@ -71,5 +81,5 @@ export async function downloadProject(
     type: "blob",
   });
 
-  saveAs(blob, "springboot-project.zip");
+  saveAs(blob, "codeforge-project.zip");
 }
