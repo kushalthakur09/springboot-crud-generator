@@ -2,10 +2,11 @@ import { EntityFormValues } from "../form-schema";
 import { CONTROLLER_TEMPLATE } from "../templates/controller";
 
 export function generateController(
-  data: EntityFormValues
+  data: EntityFormValues,
+  packageName: string
 ): string {
   return CONTROLLER_TEMPLATE
-    .replaceAll("{{PACKAGE_NAME}}", data.packageName)
+    .replaceAll("{{PACKAGE_NAME}}", packageName)
     .replaceAll("{{ENTITY_NAME}}", data.entityName)
     .replaceAll(
       "{{ENDPOINT}}",

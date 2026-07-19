@@ -2,7 +2,10 @@ import { DTO_TEMPLATE } from "../templates/dto";
 import { EntityFormValues } from "../form-schema";
 import { sanitizeFieldName } from "../utils";
 
-export function generateDto(data: EntityFormValues): string {
+export function generateDto(
+  data: EntityFormValues,
+  packageName: string,
+): string {
   const fields = data.fields
     .map((field) => {
       const annotations: string[] = [];
@@ -19,9 +22,7 @@ export function generateDto(data: EntityFormValues): string {
         annotations.push("@Email");
       }
 
-      if (
-        ["Integer", "Long", "Double", "Float"].includes(field.type)
-      ) {
+      if (["Integer", "Long", "Double", "Float"].includes(field.type)) {
         annotations.push("@Positive");
       }
 
@@ -31,8 +32,7 @@ export function generateDto(data: EntityFormValues): string {
     })
     .join("\n\n");
 
-  return DTO_TEMPLATE
-    .replace("{{PACKAGE_NAME}}", data.packageName)
+  return DTO_TEMPLATE.replace("{{PACKAGE_NAME}}", packageName)
     .replace("{{ENTITY_NAME}}", data.entityName)
     .replace("{{FIELDS}}", fields);
 }

@@ -54,44 +54,44 @@ export default function EntityForm({
     setGeneratedFiles({
       entity: {
         name: `${data.entityName}.java`,
-        code: generateEntity(data),
+        code: generateEntity(data, projectConfig.packageName),
       },
       dto: {
         name: `${data.entityName}Dto.java`,
-        code: generateDto(data),
+        code: generateDto(data, projectConfig.packageName),
       },
 
       mapper: {
         name: `${data.entityName}Mapper.java`,
-        code: generateMapper(data),
+        code: generateMapper(data, projectConfig.packageName),
       },
 
       repository: {
         name: `${data.entityName}Repository.java`,
-        code: generateRepository(data),
+        code: generateRepository(data, projectConfig.packageName),
       },
 
       service: {
         name: `${data.entityName}Service.java`,
-        code: generateService(data),
+        code: generateService(data, projectConfig.packageName),
       },
 
       serviceImpl: {
         name: `${data.entityName}ServiceImpl.java`,
-        code: generateServiceImpl(data),
+        code: generateServiceImpl(data, projectConfig.packageName),
       },
       controller: {
         name: `${data.entityName}Controller.java`,
-        code: generateController(data),
+        code: generateController(data, projectConfig.packageName),
       },
       exception: {
         name: "ResourceNotFoundException.java",
-        code: generateException(data),
+        code: generateException(projectConfig.packageName),
       },
 
       globalExceptionHandler: {
         name: "GlobalExceptionHandler.java",
-        code: generateGlobalExceptionHandler(data),
+        code: generateGlobalExceptionHandler(projectConfig.packageName),
       },
 
       application: {
